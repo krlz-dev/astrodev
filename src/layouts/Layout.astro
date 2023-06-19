@@ -12,25 +12,115 @@ const { title } = Astro.props;
 		<meta charset="UTF-8" />
 		<meta name="description" content="Astro description">
 		<meta name="viewport" content="width=device-width" />
-		<link rel="icon" type="image/svg+xml" href="/favicon.svg" />
+		<link rel="icon" type="image/svg+xml" href="/favicon.ico" />
 		<meta name="generator" content={Astro.generator} />
 		<title>{title}</title>
+		<link
+			rel="preconnect"
+			href="https://fonts.gstatic.com"
+			crossorigin="" />
+		<link
+			href="https://fonts.googleapis.com/css2?family=Open+Sans:wght@100;200;300;400;500;600&amp;display=swap"
+			rel="stylesheet" />
 	</head>
 	<body>
 		<slot />
 	</body>
 </html>
 <style is:global>
-	:root {
-		--accent: 124, 58, 237;
-		--accent-gradient: linear-gradient(45deg, rgb(var(--accent)), #da62c4 30%, white 60%);
+	 body {
+		 background-color: #1d2132;
+		 padding: 0;
+		 margin: 0;
+		 color: white;
+		 font-family: "Open Sans", sans-serif;
+		 font-weight: 200;
+	 }
+
+	.example {
+		text-align: center;
+		border: solid white 1px;
 	}
-	html {
-		font-family: system-ui, sans-serif;
-		background-color: #F6F6F6;
+
+	.container {
+		max-width: 700px;
+		margin: 0 auto;
 	}
-	code {
-		font-family: Menlo, Monaco, Lucida Console, Liberation Mono, DejaVu Sans Mono,
-			Bitstream Vera Sans Mono, Courier New, monospace;
+
+	p {
+		color: #d6d6d6;
+	}
+
+	h1 {
+		color: #d6d6d6;
+	}
+
+	h2 {
+		color: #d6d6d6;
+		font-weight: 100;
+		font-size: 32px;
+	}
+
+	.support {
+		margin: 72px auto;
+	}
+
+	.impact {
+		margin-bottom: 72px;
+	}
+
+	footer {
+		text-align: center;
+		padding: 32px;
+	}
+	.center {
+		text-align: center;
+	}
+
+	.m0auto{
+		margin: 0 auto
+	}
+
+	#logo {
+		opacity: 0;
+		transition: opacity 0.5s ease;
+	}
+	.main-search {
+		background-color: #151c3e;
+		border: 1px solid #252ca6;
+		min-width: 500px;
+		padding: 8px 12px;
+		color: white;
+		font-size: 14px
+	}
+
+	.main-search:focus {
+		outline: none;
+	}
+
+	.main-button-search{
+		font-weight: 100;
+		width: 200px;
+		border: 1px solid #9f60e2;
+		padding: 8px 12px;
+		background-color: transparent;
+		color:#a65cf5;
+		border-radius: 5px;
+		margin: 12px 0;
+		transition: 0.3s;
+		cursor: pointer;
+		opacity: 1
+	}
+
+	.main-button-search:hover{
+		opacity: 0.6
+	}
+
+	.b-dark{
+		background-color: black;
+		width: 300px;
+	}
+	.notice{
+		opacity: 0.3
 	}
 </style>

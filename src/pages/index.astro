@@ -1,35 +1,147 @@
 ---
 import Layout from '../layouts/Layout.astro';
+import Description from '../components/Description.astro';
 ---
 <Layout title="Welcome to Astro.">
-	<main>
-		<input id="searchInput" type="text" minlength="5">
-		<button id="loadButton">Show data</button>
-		<ul id="magnetLinks"></ul>
-		
-	</main>
+    <main>
+        <div class="container">
+            <div class="center">
+                <img
+                        id="logo"
+                        height="180px"
+                        src="img/logo.svg"
+                        alt=""
+                        style="opacity: 1"/>
+            </div>
+
+            <div class="center">
+                <input id="searchInput" type="text" class="main-search"/>
+            </div>
+
+            <div class="notice center b-dark m0auto">
+                <small id="mirrorsStatus">
+                    Only trusted authors from pb are considered
+                </small>
+                <div id="loadingDots" class="loading-container" style="display: none">
+                        <span class="loading-dots">
+                        <span class="dot"></span>
+                        <span class="dot"></span>
+                        <span class="dot"></span>
+                    </span>
+                </div>
+            </div>
+
+            <div class="center">
+                <button id="loadButton" class="main-button-search">Search</button>
+            </div>
+
+            <ul class ="custom-list" id="magnetLinks">
+                <li><a href="#">hello</a></li>
+            </ul>
+
+            <Description/>
+        </div>
+    </main>
 </Layout>
 
+<style>
+    .loading-container {
+        align-items: center;
+    }
+
+    .loading-dots {
+        display: inline-block;
+        position: relative;
+    }
+
+    .dot {
+        display: inline-block;
+        width: 8px;
+        height: 8px;
+        border-radius: 50%;
+        margin-right: 4px;
+        background-color: white; /* Initial dot color */
+        opacity: 0;
+        animation: wave 2s infinite;
+    }
+
+    .dot:nth-child(1) {
+        animation-delay: 0s;
+    }
+
+    .dot:nth-child(2) {
+        animation-delay: 0.25s;
+    }
+
+    .dot:nth-child(3) {
+        animation-delay: 0.5s;
+    }
+
+    @keyframes wave {
+        0%, 60% {
+            opacity: 0;
+            transform: translateY(-12px);
+        }
+        70%, 100% {
+            opacity: 1;
+            transform: translateY(-2px);
+        }
+    }
+
+    #magnetLinks li a {
+        color: white;
+        text-decoration: none;
+    }
+
+    .custom-list {
+        list-style: none;
+    }
+
+    .custom-list li {
+        background-image: url('/img/vip.gif');
+        background-repeat: no-repeat;
+        background-position: left center;
+        padding-left: 20px;
+        margin-bottom: 10px; /* Adjust as needed */
+    }
+
+</style>
 <script>
-	let torrentData;
-	const searchInput:HTMLInputElement|null = document.getElementById("searchInput");
-	const magnetLinks = document.getElementById("magnetLinks");
-	const loadButton = document.getElementById("loadButton");
+    let torrentData;
+    const searchInput: HTMLInputElement | null = document.getElementById("searchInput");
+    const magnetLinks: HTMLInputElement | null = document.getElementById("magnetLinks");
+    const loadButton: HTMLInputElement | null = document.getElementById("loadButton");
 
-	loadButton.addEventListener("click", async () => {
-	
-		const searchValue=searchInput?.value
-		let response = await fetch(`/scrapper?q=${searchValue}`);
-		torrentData = await response.json();
-		magnetLinks.innerHTML=''
-		torrentData.forEach((torrent) => {
-			const magnetLinkItem = document.createElement("li");
-			const magnetLink = document.createElement("a");
-			magnetLink.href = torrent.magnet;
-			magnetLink.text = torrent.description;
+    loadButton.addEventListener("click", async () => {
+        const searchValue = searchInput?.value
+        setSearchMessage("none", "inherit")
+        let response = await fetch(`/api/scrapper?q=${searchValue}`);
+        torrentData = await response.json();
+        magnetLinks.innerHTML = ''
+        setSearchMessage("inherit", "none")
+        torrentData.forEach((torrent) => {
+            const magnetLinkItem = document.createElement("li");
+            const magnetLink = document.createElement("a");
+            magnetLink.href = torrent.magnet;
+            magnetLink.text = torrent.description;
 
-			magnetLinkItem.appendChild(magnetLink);
-			magnetLinks?.appendChild(magnetLinkItem);
-		});
-	});
+            magnetLinkItem.appendChild(magnetLink);
+            magnetLinks?.appendChild(magnetLinkItem);
+        });
+    });
+
+    const setSearchMessage = (mirrorStatusDisplay, loadingDotsDisplay) => {
+        const mirrorsStatus = document.getElementById("mirrorsStatus");
+        const loadingDots = document.getElementById("loadingDots");
+        mirrorsStatus.style.display = mirrorStatusDisplay;
+        loadingDots.style.display = loadingDotsDisplay;
+    }
+
+</script>
+
+<script>
+    window.addEventListener('load', function () {
+        const svgElement = document.getElementById('logo');
+        svgElement.style.opacity = 1
+    });
 </script>
