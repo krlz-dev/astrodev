@@ -1,6 +1,5 @@
 import {load} from "cheerio";
-import puppeteerExtra from "puppeteer-extra";
-import blockResources from "puppeteer-extra-plugin-block-resources";
+import puppeteer from "puppeteer";
 
 let site = "https://pb.proxybay.ca";
 
@@ -22,7 +21,7 @@ export async function get({request}) {
 async function scrapeWebsite(site, searchValue) {
     const results = [];
     try {
-        const browser = await puppeteerExtra.launch({headless: "new"});
+        const browser = await puppeteer.launch({headless: "new"});
         const page = await browser.newPage();
         const endpoints = [
             `${site}/search.php?q=${searchValue}`,

@@ -123,4 +123,21 @@ const { title } = Astro.props;
 	.notice{
 		opacity: 0.3
 	}
+
+	.custom-list {
+        list-style: none;
+    }
+
+    .custom-list li {
+        background-image: url("/img/vip.gif");
+        background-repeat: no-repeat;
+        background-position: left center;
+        padding-left: 20px;
+        margin-bottom: 10px; /* Adjust as needed */
+    }
+
+	.custom-list li a {
+        color: white;
+        text-decoration: none;
+    }
 </style>
