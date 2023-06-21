@@ -10,7 +10,8 @@
     "astro": "astro"
   },
   "dependencies": {
-    "astro": "^2.6.4",
+    "@astrojs/node": "^5.2.0",
+    "astro": "^2.6.6",
     "cheerio": "^1.0.0-rc.12",
     "p-limit": "^4.0.0",
     "puppeteer": "^20.7.2"
